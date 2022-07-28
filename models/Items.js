@@ -1,37 +1,37 @@
 const {Model, DataTypes} = require('sequelize');
-const sequelize = require('../config/connection.js');
+const sequelize = require('../config/connection');
 
-class Relic extends Model{}
+class Item extends Model{}
 
-Relic.init(
+Item.init(
     {
-        //table reference
+        //Table reference
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-          //ex C7 in relic LithC7
+        //name of the object such as Prime Rhino Chassis Blueprint
         name: {
             type: DataTypes.STRING,
             allowNull: false
         },
-          //Relic class ex- Lith, Meso, Requiem, etc
-        class: {
+        //reference for the webpage to load 
+        image_url: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        common: {
-            type: DataTypes.JSON
+            allowNull: false,
+            validate: {
+                isURL: true
+            }
         }
     },
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'Relic'
+        modelName: 'Item'
     }
 )
 
-module.exports = Relic;
+module.exports = Item;
